@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Birthday Cutu</title>
+  <style>
+    :root {
+      --ink: #3f3430;
+      --muted: #7d6d67;
+      --paper: #fffaf5;
+      --rose: #e69aa3;
+      --peach: #ffd1b6;
+      --mint: #b9ded0;
+      --sage: #8daf9b;
+      --butter: #f7dc8a;
+      --lilac: #c8b7e8;
+      --sky: #a9d7e8;
+      --shadow: 0 18px 55px rgba(81, 61, 54, .14);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: ui-rounded, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        linear-gradient(135deg, rgba(255, 209, 182, .38), rgba(185, 222, 208, .34)),
+        var(--paper);
+      overflow-x: hidden;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 12px;
+      background: rgba(255, 250, 245, .88);
+      border-bottom: 1px solid rgba(63, 52, 48, .08);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav button,
+    .pill-button,
+    .icon-button {
+      border: 1px solid rgba(63, 52, 48, .12);
+      background: rgba(255, 255, 255, .68);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 10px 14px;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .nav button:hover,
+    .nav button.active,
+    .pill-button:hover,
+    .icon-button:hover {
+      transform: translateY(-1px);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(88, 67, 60, .12);
+    }
+
+    .section { display: none; min-height: calc(100vh - 58px); }
+    .section.active { display: block; animation: rise .45s ease both; }
+    .section.hero { display: none; }
+    .section.hero.active { display: grid; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      position: relative;
+      place-items: center;
+      min-height: calc(100vh - 58px);
+      padding: 44px 0 72px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, rgba(230, 154, 163, .30), transparent 42%),
+        linear-gradient(245deg, rgba(169, 215, 232, .32), transparent 46%),
+        repeating-linear-gradient(90deg, transparent 0 28px, rgba(255,255,255,.24) 28px 29px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 430px);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-inner.centered {
+      grid-template-columns: minmax(0, 760px);
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-inner.centered .cake {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-inner.centered .hero-copy {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-inner.centered .hero-actions {
+      justify-content: center;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .eyebrow {
+      color: var(--sage);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .78rem;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(3.2rem, 8vw, 7.4rem);
+      line-height: .95;
+    }
+
+    .hero-copy {
+      margin: 22px 0 28px;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.7;
+    }
+
+    .cake {
+      width: min(210px, 46vw);
+      margin: 0 0 22px;
+      filter: drop-shadow(0 18px 22px rgba(230, 154, 163, .24));
+      animation: cakeFloat 2.8s ease-in-out infinite;
+    }
+
+    .cake svg { width: 100%; display: block; }
+    @keyframes cakeFloat {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    .balloon {
+      position: absolute;
+      width: 42px;
+      height: 54px;
+      border-radius: 50% 50% 46% 46%;
+      opacity: .72;
+      animation: balloonFloat 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50px;
+      width: 1px;
+      height: 72px;
+      background: rgba(63, 52, 48, .24);
+      transform: translateX(-50%);
+    }
+
+    .balloon.b1 { left: 6%; top: 16%; background: var(--rose); animation-delay: -.5s; }
+    .balloon.b2 { right: 10%; top: 20%; background: var(--mint); animation-delay: -2s; }
+    .balloon.b3 { left: 17%; bottom: 12%; background: var(--butter); animation-delay: -4s; }
+    .balloon.b4 { right: 22%; bottom: 16%; background: var(--lilac); animation-delay: -6s; }
+    .balloon.b5 { left: 29%; top: 10%; background: var(--sky); animation-delay: -1s; }
+    .balloon.b6 { right: 32%; top: 12%; background: var(--peach); animation-delay: -3.5s; }
+    .balloon.b7 { left: 4%; bottom: 26%; background: var(--mint); animation-delay: -5s; }
+    .balloon.b8 { right: 5%; bottom: 25%; background: var(--butter); animation-delay: -7s; }
+
+    @keyframes balloonFloat {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-26px) rotate(4deg); }
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+    .primary {
+      border: 0;
+      background: linear-gradient(135deg, var(--rose), var(--lilac), var(--sky));
+      color: #fff;
+      font-weight: 800;
+      box-shadow: 0 14px 30px rgba(182, 114, 133, .25);
+    }
+
+    .portrait-frame {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+      transform: rotate(1.5deg);
+    }
+
+    .portrait-frame img,
+    .photo-card img,
+    .star-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .portrait-frame::after {
+      content: "birthday girl";
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(63, 52, 48, .54);
+      backdrop-filter: blur(10px);
+      font-size: .84rem;
+      font-weight: 800;
+    }
+
+    .section-head {
+      padding: 54px 0 24px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1;
+    }
+
+    .section-head p {
+      margin: 14px auto 0;
+      max-width: 680px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      padding-bottom: 68px;
+    }
+
+    .photo-card {
+      position: relative;
+      min-height: 310px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .photo-card:nth-child(2) { transform: translateY(24px); }
+    .photo-caption {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 11px 12px;
+      color: #fff;
+      background: rgba(63, 52, 48, .56);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      font-weight: 800;
+    }
+
+    #paparazzi {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(247, 220, 138, .22), transparent 24%),
+        linear-gradient(155deg, #151516, #271a24 52%, #0d0d11);
+      color: #fff;
+    }
+
+    .pap-stage {
+      min-height: calc(100vh - 58px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 410px);
+      gap: 34px;
+      align-items: center;
+      padding: 48px 0;
+    }
+
+    .pap-title h2 {
+      color: #fff;
+      font-size: clamp(2.6rem, 7vw, 6rem);
+      line-height: .95;
+    }
+
+    .pap-title p {
+      color: rgba(255,255,255,.72);
+      line-height: 1.8;
+      max-width: 600px;
+    }
+
+    .star-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .star-photo {
+      width: min(82vw, 420px);
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border: 9px solid rgba(255,255,255,.9);
+      border-radius: var(--radius);
+      box-shadow: 0 0 0 10px rgba(247, 220, 138, .24), 0 28px 70px rgba(0,0,0,.45);
+      background: #fff;
+    }
+
+    .camera-row {
+      position: absolute;
+      inset: auto 0 32px;
+      display: flex;
+      justify-content: space-between;
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .camera {
+      width: 70px;
+      height: 48px;
+      border-radius: 8px;
+      background: #222;
+      border: 2px solid #555;
+      position: relative;
+      box-shadow: 0 10px 18px rgba(0,0,0,.35);
+    }
+
+    .camera::before {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      border: 5px solid #767676;
+      border-radius: 50%;
+      left: 20px;
+      top: 9px;
+      background: #111;
+    }
+
+    .camera::after {
+      content: "";
+      position: absolute;
+      width: 17px;
+      height: 8px;
+      border-radius: 4px 4px 0 0;
+      left: 8px;
+      top: -9px;
+      background: #333;
+    }
+
+    .flash {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      pointer-events: none;
+      background: white;
+      opacity: 0;
+    }
+
+    .flash.go { animation: flashBurst .12s ease 8; }
+    @keyframes flashBurst {
+      0%, 100% { opacity: 0; }
+      48% { opacity: .92; }
+    }
+
+    .spark {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -20px;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 100;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(106vh) rotate(700deg); opacity: 0; }
+    }
+
+    .letters {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding-bottom: 68px;
+    }
+
+    .letter {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(63, 52, 48, .08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .letter button {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      padding: 18px;
+      color: var(--ink);
+      font-weight: 900;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .letter-text {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows .35s ease;
+    }
+
+    .letter.open .letter-text { grid-template-rows: 1fr; }
+    .letter-text div {
+      overflow: hidden;
+      color: var(--muted);
+      line-height: 1.75;
+      padding: 0 18px;
+    }
+
+    .letter.open .letter-text div { padding-bottom: 18px; }
+
+    .gift-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 780px);
+      justify-content: center;
+      gap: 20px;
+      align-items: start;
+      padding-bottom: 68px;
+    }
+
+    .gift-card,
+    .quiz-card,
+    .share-card {
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(63, 52, 48, .08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .gift-card h3,
+    .quiz-card h3 { font-size: 1.45rem; margin-bottom: 10px; }
+
+    .clue {
+      background: linear-gradient(135deg, rgba(247, 220, 138, .36), rgba(185, 222, 208, .34));
+      border: 1px dashed rgba(63, 52, 48, .18);
+      border-radius: var(--radius);
+      padding: 16px;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    .answer-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    input {
+      flex: 1 1 220px;
+      min-width: 0;
+      border: 1px solid rgba(63, 52, 48, .16);
+      border-radius: 999px;
+      padding: 12px 14px;
+      background: #fff;
+      color: var(--ink);
+      outline: 0;
+    }
+
+    input:focus { box-shadow: 0 0 0 4px rgba(169, 215, 232, .32); }
+
+    .gift-result {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: #fff;
+      border: 1px solid rgba(141, 175, 155, .34);
+      animation: pop .36s ease both;
+    }
+
+    .gift-result.show { display: block; }
+    @keyframes pop {
+      from { opacity: 0; transform: scale(.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .gift-voucher {
+      margin-top: 12px;
+      padding: 18px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, #6d9f90, #b288c9, #e69aa3);
+      font-weight: 900;
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 2.35rem);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .tiny-note {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .96rem;
+    }
+
+    .quiz-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      padding-bottom: 68px;
+      align-items: stretch;
+    }
+
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .yes { background: var(--mint); font-weight: 900; }
+    .no { background: #fff; font-weight: 900; }
+
+    .cat-stage {
+      min-height: 390px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .mini-quiz .cat-stage {
+      min-height: 0;
+      margin-top: 16px;
+    }
+
+    .cat-stage img {
+      display: none;
+      width: min(100%, 260px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 0 auto;
+    }
+
+    .cat-stage img.show { display: block; animation: pop .35s ease both; }
+    .cat-message {
+      margin-top: 14px;
+      color: var(--muted);
+      font-weight: 900;
+      min-height: 28px;
+    }
+
+    .share-card {
+      margin: 0 auto 68px;
+      max-width: 760px;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 120;
+      transform: translateX(-50%) translateY(30px);
+      opacity: 0;
+      padding: 12px 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(63, 52, 48, .88);
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+      transition: opacity .25s ease, transform .25s ease;
+      text-align: center;
+    }
+
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 780px) {
+      .hero-inner,
+      .pap-stage,
+      .gift-wrap,
+      .quiz-layout,
+      .quiz-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { padding-top: 28px; }
+      .portrait-frame { max-width: 360px; margin: 0 auto; }
+      .photo-grid, .letters { grid-template-columns: 1fr; }
+      .photo-card:nth-child(2) { transform: none; }
+      .camera-row { display: none; }
+      .nav { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+      .nav button { white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Birthday pages">
+    <button class="active" data-page="home">🏠 Home</button>
+    <button data-page="photos">📸 Photos</button>
+    <button data-page="paparazzi">✨ Red Carpet</button>
+    <button data-page="letters">💌 Love Letters</button>
+    <button data-page="gifts">🎁 Gift Hunt</button>
+    <button data-page="quiz">💕 Love Quiz</button>
+    <button data-page="share">💫 Share</button>
+  </nav>
+
+  <main>
+    <section id="home" class="section active hero">
+      <span class="balloon b1" aria-hidden="true"></span>
+      <span class="balloon b2" aria-hidden="true"></span>
+      <span class="balloon b3" aria-hidden="true"></span>
+      <span class="balloon b4" aria-hidden="true"></span>
+      <span class="balloon b5" aria-hidden="true"></span>
+      <span class="balloon b6" aria-hidden="true"></span>
+      <span class="balloon b7" aria-hidden="true"></span>
+      <span class="balloon b8" aria-hidden="true"></span>
+      <div class="shell hero-inner centered">
+        <div>
+          <div class="eyebrow">🎂 For my wife, my favourite person 🎂</div>
+          <div class="cake" aria-hidden="true">
+            <svg viewBox="0 0 220 190" role="img">
+              <path d="M69 61c0-23 18-41 41-41s41 18 41 41" fill="#ffd1b6"/>
+              <path d="M103 11h14v36h-14z" fill="#8daf9b"/>
+              <path d="M110 0c9 13 10 21 0 28-10-7-9-15 0-28z" fill="#f7dc8a"/>
+              <rect x="42" y="72" width="136" height="88" rx="8" fill="#fff7ef"/>
+              <path d="M42 91c17 17 33-11 50 5 18 16 35-13 52 2 13 12 23 2 34-8V80c0-4-4-8-8-8H50c-4 0-8 4-8 8z" fill="#e69aa3"/>
+              <rect x="31" y="148" width="158" height="27" rx="8" fill="#c8b7e8"/>
+              <circle cx="72" cy="118" r="7" fill="#b9ded0"/>
+              <circle cx="111" cy="126" r="7" fill="#f7dc8a"/>
+              <circle cx="149" cy="112" r="7" fill="#a9d7e8"/>
+            </svg>
+          </div>
+          <h1>Happy Birthday, Cutu</h1>
+          <p class="hero-copy">
+            Today is YOUR day, beautiful. Filled with love, laughter, confetti and surprises made just for you.
+          </p>
+          <div class="hero-actions">
+            <button class="pill-button primary" data-go="photos">🎉 Start the celebration</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="photos" class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">📷 Tiny museum of us</div>
+          <h2>Photos 💕</h2>
+          <p>Soft little snapshots for the birthday girl.</p>
+        </div>
+        <div class="photo-grid">
+          <article class="photo-card">
+            <img src="assets/photo-1.jpg" alt="Cutu smiling in a white outfit">
+            <div class="photo-caption">The kind of day I keep replaying</div>
+          </article>
+          <article class="photo-card">
+            <img src="assets/photo-2.jpg" alt="Cutu in a beautiful wedding saree">
+            <div class="photo-caption">Main character energy</div>
+          </article>
+          <article class="photo-card">
+            <img src="assets/photo-3.jpg" alt="Cutu near a glowing ferris wheel">
+            <div class="photo-caption">My favourite smile</div>
+          </article>
+          <article class="photo-card">
+            <img src="assets/photo-4.jpg" alt="Cutu walking in a purple dress">
+            <div class="photo-caption">A little proof that life is better with you</div>
+          </article>
+          <article class="photo-card">
+            <img src="assets/photo-5.jpg" alt="Cutu in a black floral dress">
+            <div class="photo-caption">Forever saving moments like this</div>
+          </article>
+          <article class="photo-card">
+            <img src="assets/photo-6.jpg" alt="Cutu beside a red telephone box">
+            <div class="photo-caption">Birthday girl, always loved</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="paparazzi" class="section">
+      <div class="shell pap-stage">
+        <div class="pap-title">
+          <div class="eyebrow">✨ Red carpet moment ✨</div>
+          <h2>Cutu arrives</h2>
+          <div class="hero-actions">
+            <button class="pill-button primary" id="flashBtn">📸 Make the cameras flash</button>
+            <label class="pill-button" for="photoUpload">🖼️ Change photo</label>
+            <input id="photoUpload" type="file" accept="image/*" hidden>
+          </div>
+        </div>
+        <div class="star-wrap">
+          <div class="star-photo">
+            <img id="starPhoto" src="assets/red-carpet-cutu.jpeg" alt="Cutu on the red carpet">
+          </div>
+        </div>
+      </div>
+      <div class="camera-row" aria-hidden="true">
+        <div class="camera" style="margin-left:7%; transform: rotate(10deg);"></div>
+        <div class="camera" style="transform: rotate(-6deg);"></div>
+        <div class="camera" style="margin-right:8%; transform: rotate(8deg);"></div>
+      </div>
+    </section>
+
+    <section id="letters" class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">💌 Open one by one 💌</div>
+          <h2>Love Letters 🥰</h2>
+          <p>Each note is a tiny envelope. Tap the titles and let the birthday mushiness happen properly.</p>
+        </div>
+        <div class="letters">
+          <article class="letter">
+            <button type="button">💗 Why I love you <span>+</span></button>
+            <div class="letter-text"><div>Because even the most ordinary day becomes softer when you are in it. Your laugh, your stubborn little expressions, your kindness, your chaos, your heart. I love all of it. 🌸</div></div>
+          </article>
+          <article class="letter">
+            <button type="button">🏡 What you mean to me <span>+</span></button>
+            <div class="letter-text"><div>You are home. Not just a person I love, but the place my mind goes when it wants peace. Being loved by you is the kind of luck I never want to take lightly. ✨</div></div>
+          </article>
+          <article class="letter">
+            <button type="button">🎂 My birthday wish for you <span>+</span></button>
+            <div class="letter-text"><div>I hope this year gives you soft mornings, loud laughter, beautiful surprises, and so many reasons to feel adored. Especially by me. Very loudly by me. 💫</div></div>
+          </article>
+          <article class="letter">
+            <button type="button">🤍 A promise <span>+</span></button>
+            <div class="letter-text"><div>I promise to keep choosing you in the small ways and the big ways. To cheer for you, protect your peace, annoy you lovingly, and make sure you never forget how precious you are to me. 🫶</div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gifts" class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">🎁 Guess before reveal 🎁</div>
+          <h2>Gift Hunt 🧩</h2>
+          <p>The first gift opens only when Cutu solves the clue. Type the answer and the surprise will reveal itself.</p>
+        </div>
+        <div class="gift-wrap">
+          <article class="gift-card">
+            <h3>🎁 Gift #1</h3>
+            <div class="clue">
+              🕯️ Your clue: this gift is where tired shoulders, a busy mind, and all your birthday princess duties go to melt away.
+              It has calm rooms, soft music, gentle hands, and absolutely no chores allowed. 🌸
+            </div>
+            <div class="answer-row">
+              <input id="giftAnswer" type="text" placeholder="Enter your guess">
+              <button class="pill-button primary" id="checkGift">✨ Check answer</button>
+            </div>
+            <div class="gift-result" id="giftResult">
+              <strong>🎉 Yes, Cutu. You guessed it.</strong>
+              <div class="gift-voucher">💆‍♀️ Massage Spa Session 💆‍♀️</div>
+              <p class="tiny-note">A calm, pampering session is waiting for you because you deserve to be spoiled, relaxed, and treated like the birthday queen you are. 👑</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">💕 Most important questions 💕</div>
+          <h2>Love Quiz 🐾</h2>
+          <p>There are yes buttons, no buttons, and cats with very strong feelings about the answers.</p>
+        </div>
+        <div class="quiz-layout">
+          <div class="quiz-grid">
+            <article class="quiz-card mini-quiz">
+              <h3>🥺 Do you love me?</h3>
+              <p class="tiny-note">Choose carefully. The cats are emotionally invested.</p>
+              <div class="quiz-actions">
+                <button class="pill-button yes quiz-answer" data-answer="yes">Yes 💚</button>
+                <button class="pill-button no quiz-answer" data-answer="no">No 😡</button>
+              </div>
+              <div class="cat-stage">
+                <img class="blush-cat" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Blushing happy cat gif">
+                <img class="angry-cat" src="https://media1.tenor.com/m/Vo5VXrtZ-b8AAAAd/cat-filing-nails.gif" alt="Cat filing nails gif">
+                <div class="cat-message">Waiting for the official answer...</div>
+              </div>
+            </article>
+            <article class="quiz-card mini-quiz">
+              <h3>🌸 Am I your favourite person?</h3>
+              <p class="tiny-note">A simple question. A very obvious answer.</p>
+              <div class="quiz-actions">
+                <button class="pill-button yes quiz-answer" data-answer="yes">Of course 💚</button>
+                <button class="pill-button no quiz-answer" data-answer="no">Hmm... 😤</button>
+              </div>
+              <div class="cat-stage">
+                <img class="blush-cat" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Blushing happy cat gif">
+                <img class="angry-cat" src="https://media1.tenor.com/m/Vo5VXrtZ-b8AAAAd/cat-filing-nails.gif" alt="Cat filing nails gif">
+                <div class="cat-message">The jury is waiting...</div>
+              </div>
+            </article>
+            <article class="quiz-card mini-quiz">
+              <h3>🎉 Are you having the best birthday?</h3>
+              <p class="tiny-note">Birthday quality control department is watching.</p>
+              <div class="quiz-actions">
+                <button class="pill-button yes quiz-answer" data-answer="yes">YES 💚</button>
+                <button class="pill-button no quiz-answer" data-answer="no">Could be better 😒</button>
+              </div>
+              <div class="cat-stage">
+                <img class="blush-cat" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Blushing happy cat gif">
+                <img class="angry-cat" src="https://media1.tenor.com/m/Vo5VXrtZ-b8AAAAd/cat-filing-nails.gif" alt="Cat filing nails gif">
+                <div class="cat-message">Birthday status pending...</div>
+              </div>
+            </article>
+            <article class="quiz-card mini-quiz">
+              <h3>💍 Will you be mine forever?</h3>
+              <p class="tiny-note">This one is legally binding in husband court.</p>
+              <div class="quiz-actions">
+                <button class="pill-button yes quiz-answer" data-answer="yes">Always 💚</button>
+                <button class="pill-button no quiz-answer" data-answer="no">Never 😤</button>
+              </div>
+              <div class="cat-stage">
+                <img class="blush-cat" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Blushing happy cat gif">
+                <img class="angry-cat" src="https://media1.tenor.com/m/Vo5VXrtZ-b8AAAAd/cat-filing-nails.gif" alt="Cat filing nails gif">
+                <div class="cat-message">Forever answer loading...</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="share" class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">💫 Send it on WhatsApp 💫</div>
+          <h2>Share 💌</h2>
+          <p>Once this folder is hosted, this button can share the link directly. Locally, it copies the current file path or page URL.</p>
+        </div>
+        <div class="share-card">
+          <h3>Birthday link ready</h3>
+          <p class="tiny-note">Upload this folder to Netlify, GitHub Pages, Vercel, or any static hosting. Then open the hosted link and tap share.</p>
+          <div class="hero-actions" style="justify-content:center; margin-top:18px;">
+            <button class="pill-button primary" id="shareBtn">📲 Share birthday website</button>
+            <button class="pill-button" id="copyBtn">🔗 Copy current link</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="flash" id="flash"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const pages = document.querySelectorAll(".section");
+    const navButtons = document.querySelectorAll(".nav button");
+    const toast = document.getElementById("toast");
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function showPage(id) {
+      pages.forEach(page => page.classList.toggle("active", page.id === id));
+      navButtons.forEach(button => button.classList.toggle("active", button.dataset.page === id));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (id === "paparazzi") setTimeout(() => burstConfetti(24), 180);
+    }
+
+    navButtons.forEach(button => button.addEventListener("click", () => showPage(button.dataset.page)));
+    document.querySelectorAll("[data-go]").forEach(button => button.addEventListener("click", () => showPage(button.dataset.go)));
+
+    function burstConfetti(count = 80) {
+      const colors = ["#e69aa3", "#ffd1b6", "#b9ded0", "#f7dc8a", "#c8b7e8", "#a9d7e8"];
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement("span");
+        piece.className = "spark";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = 1.6 + Math.random() * 1.8 + "s";
+        piece.style.animationDelay = Math.random() * .25 + "s";
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3800);
+      }
+    }
+
+    document.getElementById("flashBtn").addEventListener("click", () => {
+      const flash = document.getElementById("flash");
+      flash.classList.remove("go");
+      void flash.offsetWidth;
+      flash.classList.add("go");
+      burstConfetti(90);
+      showToast("Red carpet mode activated.");
+    });
+
+    document.getElementById("photoUpload").addEventListener("change", event => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        document.getElementById("starPhoto").src = reader.result;
+        showToast("Photo changed for this browser.");
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.querySelectorAll(".letter button").forEach(button => {
+      button.addEventListener("click", () => {
+        const letter = button.closest(".letter");
+        letter.classList.toggle("open");
+        button.querySelector("span").textContent = letter.classList.contains("open") ? "-" : "+";
+      });
+    });
+
+    const validGiftAnswers = ["massage", "spa", "massage spa", "spa massage", "spa session", "massage session", "massage spa session"];
+    document.getElementById("checkGift").addEventListener("click", () => {
+      const input = document.getElementById("giftAnswer");
+      const answer = input.value.trim().toLowerCase().replace(/\s+/g, " ");
+      const isCorrect = validGiftAnswers.some(valid => answer.includes(valid));
+      if (isCorrect) {
+        document.getElementById("giftResult").classList.add("show");
+        burstConfetti(110);
+        showToast("Correct. Gift revealed.");
+      } else {
+        input.animate([
+          { transform: "translateX(0)" },
+          { transform: "translateX(-8px)" },
+          { transform: "translateX(8px)" },
+          { transform: "translateX(0)" }
+        ], { duration: 260 });
+        showToast("Almost. Think relaxation and pampering.");
+      }
+    });
+
+    document.getElementById("giftAnswer").addEventListener("keydown", event => {
+      if (event.key === "Enter") document.getElementById("checkGift").click();
+    });
+
+    document.querySelectorAll(".quiz-answer").forEach(button => {
+      button.addEventListener("click", event => {
+        const card = event.currentTarget.closest(".mini-quiz");
+        const blushCat = card.querySelector(".blush-cat");
+        const angryCat = card.querySelector(".angry-cat");
+        const catMessage = card.querySelector(".cat-message");
+        const isYes = event.currentTarget.dataset.answer === "yes";
+        if (isYes) {
+          angryCat.classList.remove("show");
+          blushCat.classList.add("show");
+          catMessage.textContent = "Correct answer husband is now blushing.";
+          burstConfetti(90);
+        } else {
+          blushCat.classList.remove("show");
+          angryCat.classList.add("show");
+          catMessage.textContent = "Wrong answer detected. Please reconsider immediately.";
+          event.currentTarget.animate([
+            { transform: "translate(0, 0) rotate(0deg)" },
+            { transform: "translate(18px, -10px) rotate(4deg)" },
+            { transform: "translate(-14px, 8px) rotate(-4deg)" },
+            { transform: "translate(0, 0) rotate(0deg)" }
+          ], { duration: 420 });
+        }
+      });
+    });
+
+    async function copyCurrentLink() {
+      const link = window.location.href;
+      try {
+        await navigator.clipboard.writeText(link);
+        showToast("Link copied.");
+      } catch {
+        showToast("Copy blocked here. Use the browser address bar.");
+      }
+    }
+
+    document.getElementById("copyBtn").addEventListener("click", copyCurrentLink);
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+      const shareData = {
+        title: "Happy Birthday Cutu",
+        text: "Cutu, this birthday surprise is for you.",
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch {
+          showToast("Share cancelled.");
+        }
+      } else {
+        copyCurrentLink();
+      }
+    });
+
+    setTimeout(() => burstConfetti(40), 550);
+  </script>
+</body>
+</html>
